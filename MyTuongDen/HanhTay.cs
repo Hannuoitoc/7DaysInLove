@@ -1,12 +1,10 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Com : MonoBehaviour
+public class HanhTay : MonoBehaviour
 {
     [SerializeReference] private bool isClick = false;
     private SpriteRenderer spriteRenderer;
-    [SerializeReference] private bool isManhTre=false;
+    [SerializeReference] private bool isChao=false;
     private Vector2 defaultPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,15 +24,16 @@ public class Com : MonoBehaviour
 
         if (!isClick)
         {
-            if (isManhTre&&ManhTre.trangThai==1)
+            if (isChao&&Chao.trangThai==8)
             {
                 Destroy(gameObject);
-                ManhTre.trangThai++;
+                Chao.trangThai++;
             }
             else
             {
                 transform.position=defaultPosition;
             }
+            
         }
     }
 
@@ -50,13 +49,13 @@ public class Com : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "ManhTre")
-            isManhTre = true;
+        if(other.tag == "Chao")
+            isChao = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "ManhTre")
-            isManhTre = false;
+        if (other.tag == "Chao")
+            isChao = false;
     }
 }

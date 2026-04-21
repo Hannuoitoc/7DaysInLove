@@ -24,10 +24,10 @@ public class Bo : MonoBehaviour
 
         if (!isClick)
         {
-            if (isManhTre&&Shushi.trinhTuLamShushi==5)
+            if (isManhTre&&ManhTre.trangThai==2)
             {
                 Destroy(gameObject);
-                Shushi.trinhTuLamShushi--;
+                ManhTre.trangThai++;
             }
             else
             {

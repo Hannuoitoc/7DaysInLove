@@ -24,10 +24,10 @@ public class CaHoi : MonoBehaviour
 
         if (!isClick)
         {
-            if (isManhTre&&Shushi.trinhTuLamShushi==4)
+            if (isManhTre&&ManhTre.trangThai==3)
             {
                 Destroy(gameObject);
-                Shushi.trinhTuLamShushi--;
+                ManhTre.trangThai++;
             }
             else
             {

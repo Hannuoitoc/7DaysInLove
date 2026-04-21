@@ -1,12 +1,10 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Com : MonoBehaviour
+public class My_MyY : MonoBehaviour
 {
     [SerializeReference] private bool isClick = false;
     private SpriteRenderer spriteRenderer;
-    [SerializeReference] private bool isManhTre=false;
+    [SerializeReference] private bool isNoi=false;
     private Vector2 defaultPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,7 +16,7 @@ public class Com : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isClick)
+        if (isClick && Noi.nuocSoi==true)
         {
             spriteRenderer.sortingOrder = 999;
             transform.position=(Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -26,10 +24,10 @@ public class Com : MonoBehaviour
 
         if (!isClick)
         {
-            if (isManhTre&&ManhTre.trangThai==1)
+            if (isNoi&&Noi.trangThai==1)
             {
+                Noi.trangThai=3;
                 Destroy(gameObject);
-                ManhTre.trangThai++;
             }
             else
             {
@@ -50,13 +48,13 @@ public class Com : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "ManhTre")
-            isManhTre = true;
+        if(other.tag == "Noi")
+            isNoi = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "ManhTre")
-            isManhTre = false;
+        if (other.tag == "Noi")
+            isNoi = false;
     }
 }

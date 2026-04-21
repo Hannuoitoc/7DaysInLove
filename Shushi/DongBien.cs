@@ -24,10 +24,10 @@ public class DongBien : MonoBehaviour
 
         if (!isClick)
         {
-            if (isManhTre&&Shushi.trinhTuLamShushi==7)
+            if (isManhTre&&ManhTre.trangThai==0)
             {
                 Destroy(gameObject);
-                Shushi.trinhTuLamShushi--;
+                ManhTre.trangThai++;
             }
             else
             {

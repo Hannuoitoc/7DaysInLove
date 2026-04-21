@@ -1,13 +1,10 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Shushi : MonoBehaviour
+public class GameControlMain : MonoBehaviour
 {
-    
-    public bool active=false;
+    public static int Day = 1;
     void Start()
     {
-        
     }
 
     // Update is called once per frame

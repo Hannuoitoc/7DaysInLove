@@ -1,19 +1,21 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class BiNgoi : MonoBehaviour
+public class ThaiBiNgoi : MonoBehaviour
 {
     private Animator animator;
     private Vector2 batDauClick;
     private Vector2 ketThucClick;
     private int trangThai = 0;
     private float hieu = 0;
+    public static bool active = false;
+    public static bool isDone = false;
     void Start()
     {
         animator = GetComponent<Animator>();
     }
-
     // Update is called once per frame
-    void Update()
+    async Task Update()
     {
         if (batDauClick.y >= -1 && batDauClick.y <= 0.8 && batDauClick.x <= -2.5 && ketThucClick.x-batDauClick.x >= 5.4&&trangThai==0)
         {
@@ -61,7 +63,8 @@ public class BiNgoi : MonoBehaviour
             animator.SetBool("isBiNgoi6",false);
             animator.SetBool("isBiNgoi7",true);
             hieu = 0;
-            trangThai++;
+            await Task.Delay(2000);
+            isDone = true;
         }
     }
     private void OnMouseDown()

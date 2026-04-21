@@ -1,18 +1,15 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Com : MonoBehaviour
+public class GioBanhMy : MonoBehaviour
 {
-    [SerializeReference] private bool isClick = false;
+    [SerializeReference]private bool isBanhMy=false;
+    [SerializeReference]private bool isClick=false;
     private SpriteRenderer spriteRenderer;
-    [SerializeReference] private bool isManhTre=false;
     private Vector2 defaultPosition;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        defaultPosition = transform.position;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer=GetComponent<SpriteRenderer>();
+        defaultPosition=transform.position;
     }
 
     // Update is called once per frame
@@ -26,10 +23,10 @@ public class Com : MonoBehaviour
 
         if (!isClick)
         {
-            if (isManhTre&&ManhTre.trangThai==1)
+            if (isBanhMy&&BanhMy.trangThai==2)
             {
+                BanhMy.trangThai++;
                 Destroy(gameObject);
-                ManhTre.trangThai++;
             }
             else
             {
@@ -40,23 +37,27 @@ public class Com : MonoBehaviour
 
     private void OnMouseDown()
     {
-        isClick = true;
+        isClick=true;
     }
 
     private void OnMouseUp()
     {
-        isClick = false;
+        isClick=false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "ManhTre")
-            isManhTre = true;
+        if (other.tag == "BanhMy")
+        {
+            isBanhMy=true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "ManhTre")
-            isManhTre = false;
+        if (other.tag == "BanhMy")
+        {
+            isBanhMy=false;
+        }
     }
 }

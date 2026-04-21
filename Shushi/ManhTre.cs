@@ -6,6 +6,7 @@ public class ManhTre : MonoBehaviour
     private Animator animator;
     private Vector2 batDauClick;
     private Vector2 ketThucClick;
+    public static int trangThai = 0;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -14,33 +15,33 @@ public class ManhTre : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (Shushi.trinhTuLamShushi)
+        switch (trangThai)
         {
-            case 6:
+            case 1:
                 animator.SetBool("isManhTreDongBien", true);
                 break;
-            case 5:
+            case 2:
                 animator.SetBool("isManhTreDongBien", false);
                 animator.SetBool("isManhTreDongBienCom", true);
                 break;
-            case 4:
+            case 3:
                 animator.SetBool("isManhTreDongBienCom", false);
                 animator.SetBool("isManhTreDongBienComBo", true);
                 break;
-            case 3:
+            case 4:
                 animator.SetBool("isManhTreDongBienComBo", false);
                 animator.SetBool("isManhTreDongBienComBoCaHoi", true);
-                Shushi.trinhTuLamShushi--;
+                trangThai++;
                 break;
-            case 2:
+            case 5:
                 if (ketThucClick.y - batDauClick.y >= 5)
                 {
                     animator.SetBool("isManhTreDongBienComBoCaHoi", false);
                     animator.SetBool("isManhTreCuon", true);
-                    Shushi.trinhTuLamShushi--;
+                    trangThai++;
                 }
                 break;
-            case 1:
+            case 6:
                 if (batDauClick.y - ketThucClick.y  >= 5)
                 {
                     animator.SetBool("isManhTreCuon", false);

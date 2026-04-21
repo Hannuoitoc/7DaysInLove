@@ -1,12 +1,10 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Com : MonoBehaviour
+public class BatNuoc : MonoBehaviour
 {
     [SerializeReference] private bool isClick = false;
     private SpriteRenderer spriteRenderer;
-    [SerializeReference] private bool isManhTre=false;
+    [SerializeReference] private bool isNoi=false;
     private Vector2 defaultPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,10 +24,10 @@ public class Com : MonoBehaviour
 
         if (!isClick)
         {
-            if (isManhTre&&ManhTre.trangThai==1)
+            if (isNoi&&Noi.trangThai==0)
             {
                 Destroy(gameObject);
-                ManhTre.trangThai++;
+                Noi.trangThai++;
             }
             else
             {
@@ -50,13 +48,13 @@ public class Com : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "ManhTre")
-            isManhTre = true;
+        if(other.tag == "Noi")
+            isNoi = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "ManhTre")
-            isManhTre = false;
+        if (other.tag == "Noi")
+            isNoi = false;
     }
 }
