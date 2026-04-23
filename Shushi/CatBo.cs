@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class CatBo : MonoBehaviour
@@ -7,13 +8,14 @@ public class CatBo : MonoBehaviour
     private Vector2 ketThucClick;
     private int trangThai = 0;
     private float hieu = 0;
+    public static bool isDone=false;
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    async Task Update()
     {
         if (batDauClick.x >= 0.4 && batDauClick.x <= 0.7 && batDauClick.y >= 0 && hieu >= 2.5 && trangThai == 0)
         {
@@ -42,14 +44,15 @@ public class CatBo : MonoBehaviour
             animator.SetBool("isBo3",false);
             animator.SetBool("isBo4",true);
             hieu = 0;
-            trangThai++;
+            await Task.Delay(1000);
+            isDone=true;
         }
     }
     private void OnMouseDown()
     {
         batDauClick=Vector2.zero;
         ketThucClick=Vector2.zero;  
-        batDauClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        batDauClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition); ;
     }
 
     private void OnMouseUp()

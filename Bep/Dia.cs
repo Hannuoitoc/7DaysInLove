@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class Dia : MonoBehaviour
 {
     public static int trangThai=0;
     private Animator animator;
+    public static bool isClick=false;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -22,5 +24,10 @@ public class Dia : MonoBehaviour
                 animator.SetBool("isDiaMyY", true);
                 break;
         }
+    }
+
+    private void OnMouseDown()
+    {
+        isClick=true;
     }
 }

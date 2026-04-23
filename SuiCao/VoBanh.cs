@@ -4,6 +4,7 @@ public class VoBanh : MonoBehaviour
 {
     public static int trangThai=0;
     private Animator animator;
+    public static bool isClick=false;
     void Start()
     {
         animator=GetComponent<Animator>();
@@ -26,7 +27,17 @@ public class VoBanh : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (trangThai == 2)
+        {
+            isClick=true;
+        }
         if(trangThai==1)
             trangThai++;
     }
+
+    private void OnMouseUp()
+    {
+        isClick=false;
+    }
+    
 }

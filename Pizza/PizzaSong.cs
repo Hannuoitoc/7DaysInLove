@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class My_MyY : MonoBehaviour
+public class PizzaSong : MonoBehaviour
 {
     [SerializeReference] private bool isClick = false;
     private SpriteRenderer spriteRenderer;
-    [SerializeReference] private bool isNoi=false;
+    [SerializeReference] private bool isLo=false;
     private Vector2 defaultPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,7 +16,7 @@ public class My_MyY : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isClick && Noi.nuocSoi==true)
+        if (isClick)
         {
             spriteRenderer.sortingOrder = 999;
             transform.position=(Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -24,10 +24,9 @@ public class My_MyY : MonoBehaviour
 
         if (!isClick)
         {
-            if (isNoi&&Noi.trangThai==1)
+            if (isLo&&LoControl.trangThai==1)
             {
-                Noi.trangThai=2;
-                Destroy(gameObject);
+                LoControl.trangThai++;
             }
             else
             {
@@ -48,13 +47,13 @@ public class My_MyY : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Noi")
-            isNoi = true;
+        if(other.tag == "Lo")
+            isLo = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Noi")
-            isNoi = false;
+        if (other.tag == "Lo")
+            isLo = false;
     }
 }

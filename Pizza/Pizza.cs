@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class Pizza : MonoBehaviour
 {
     public static int trangThai=0;
     private Animator animator;
+    public static bool donePizzSong=false;
     void Start()
     {
         animator=GetComponent<Animator>();
@@ -31,5 +33,13 @@ public class Pizza : MonoBehaviour
                 break;
         }
     }
-    
+
+    private void OnMouseDown()
+    {
+
+        if (trangThai == 4)
+        {
+            donePizzSong=true;
+        }
+    }
 }

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ThaiHanhTay : MonoBehaviour
@@ -7,13 +8,14 @@ public class ThaiHanhTay : MonoBehaviour
     private Vector2 ketThucClick;
     private int trangThai = 0;
     private float hieu = 0;
+    public static bool isDone = false;
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    async Task Update()
     {
         if (batDauClick.y >= 0.1 && batDauClick.y <= 1.2 && batDauClick.x <= -1.5 && ketThucClick.x-batDauClick.x >= 2&&trangThai==0)
         {
@@ -49,6 +51,8 @@ public class ThaiHanhTay : MonoBehaviour
             animator.SetBool("isHanhTay5",true);
             hieu = 0;
             trangThai++;
+            await Task.Delay(1000);
+            isDone = true;
         }
     }
     private void OnMouseDown()

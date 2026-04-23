@@ -1,16 +1,19 @@
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Bat : MonoBehaviour
 {
     public static int trangThai=0;
     private Animator animator;
+    public static bool isClick=false;
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    async Task Update()
     {
         switch (trangThai)
         {
@@ -22,5 +25,15 @@ public class Bat : MonoBehaviour
                 animator.SetBool("isBatMyTuongDen", true);
                 break;
         }
+    }
+
+    private void OnMouseDown()
+    {
+        isClick = true;
+    }
+
+    private void OnMouseUp()
+    {
+        isClick = false;
     }
 }

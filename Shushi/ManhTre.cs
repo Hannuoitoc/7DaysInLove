@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -6,7 +7,9 @@ public class ManhTre : MonoBehaviour
     private Animator animator;
     private Vector2 batDauClick;
     private Vector2 ketThucClick;
+    private float hieu = 0;
     public static int trangThai = 0;
+    public static bool isDone = false;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -34,18 +37,21 @@ public class ManhTre : MonoBehaviour
                 trangThai++;
                 break;
             case 5:
-                if (ketThucClick.y - batDauClick.y >= 5)
+                if (hieu>= 5)
                 {
+                    hieu = 0;
                     animator.SetBool("isManhTreDongBienComBoCaHoi", false);
                     animator.SetBool("isManhTreCuon", true);
                     trangThai++;
+                    
                 }
                 break;
             case 6:
-                if (batDauClick.y - ketThucClick.y  >= 5)
+                if (hieu  >= 5)
                 {
                     animator.SetBool("isManhTreCuon", false);
                     animator.SetBool("isShushi", true);
+                    trangThai++;
                 }
                 break;
         }
@@ -54,10 +60,13 @@ public class ManhTre : MonoBehaviour
     private void OnMouseDown()
     {
         batDauClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if(trangThai==7)
+            isDone=true;
     }
 
     private void OnMouseUp()
     {
         ketThucClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        hieu =Math.Abs(batDauClick.y) + Math.Abs(ketThucClick.y);
     }
 }

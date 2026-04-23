@@ -6,6 +6,7 @@ public class BanhMy : MonoBehaviour
     private Vector2 batDauClick;
     private Vector2 ketThucClick;
     public static int trangThai = 0;
+    public static bool isClick = false;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -50,8 +51,14 @@ public class BanhMy : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        if(trangThai == 8)
+            isClick = true;
         if(trangThai==0||trangThai==7)
             trangThai++;
     }
-    
+
+    private void OnMouseUp()
+    {
+        isClick = false;
+    }
 }

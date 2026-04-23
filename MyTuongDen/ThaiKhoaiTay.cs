@@ -8,6 +8,7 @@ public class ThaiKhoaiTay : MonoBehaviour
     private Vector2 ketThucClick;
     private int trangThai = 0;
     private float hieu = 0;
+    private float hieuX = 0;
     public static bool active = false;
     public static bool isDone = false;
     void Start()
@@ -19,17 +20,17 @@ public class ThaiKhoaiTay : MonoBehaviour
     async Task Update()
     {
 
-        if (batDauClick.y >= 0 && batDauClick.y <= 0.7 && batDauClick.x <= -1.4 && ketThucClick.x-batDauClick.x >= 2.7&&trangThai==0)
+        if (batDauClick.y >= 0 && batDauClick.y <= 0.7 && batDauClick.x <= -1.4 && hieuX >= 2.7&&trangThai==0)
         {
             animator.SetBool("isKhoaiTay1",true);
-            hieu = 0;
+            hieuX = 0;
             trangThai++;
         }
-        if (batDauClick.y >= -0.7 && batDauClick.y <= 0 && batDauClick.x <= -1.4 && ketThucClick.x-batDauClick.x >= 2.7&&trangThai==1)
+        if (batDauClick.y >= -0.7 && batDauClick.y <= 0 && batDauClick.x <= -1.4 && hieuX >= 2.7&&trangThai==1)
         {
             animator.SetBool("isKhoaiTay1",false);
             animator.SetBool("isKhoaiTay2",true);
-            hieu = 0;
+
             trangThai++;
         }
         if (batDauClick.x >= -0.1 && batDauClick.x <= 0.8 && batDauClick.y >= 1 && hieu >= 2 && trangThai == 2)
@@ -45,7 +46,7 @@ public class ThaiKhoaiTay : MonoBehaviour
             animator.SetBool("isKhoaiTay3",false);
             animator.SetBool("isKhoaiTay4",true);
             hieu = 0;
-            await Task.Delay(2000);
+            await Task.Delay(1000);
             isDone = true;
         }
     }
@@ -59,6 +60,7 @@ public class ThaiKhoaiTay : MonoBehaviour
     private void OnMouseUp()
     {
         ketThucClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        hieu = batDauClick.y - ketThucClick.y;
+        hieu =  batDauClick.y - ketThucClick.y;
+        hieuX = ketThucClick.x - batDauClick.x;
     }
 }

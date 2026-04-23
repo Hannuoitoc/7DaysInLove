@@ -7,6 +7,7 @@ public class ThaiShushi : MonoBehaviour
     private Vector2 ketThucClick;
     private int trangThai = 0;
     private float hieu = 0;
+    public static bool isDone=false;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -78,6 +79,8 @@ public class ThaiShushi : MonoBehaviour
         batDauClick=Vector2.zero;
         ketThucClick=Vector2.zero;  
         batDauClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if(trangThai==8)
+            isDone=true;
     }
 
     private void OnMouseUp()

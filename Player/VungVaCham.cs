@@ -7,6 +7,8 @@ public class VungVaCham : MonoBehaviour
 {
     [SerializeField] private int vaCham = 0;
     private bool isClickE = false;
+    public static GameObject player;
+    
     void Start()
     {
         
@@ -23,7 +25,10 @@ public class VungVaCham : MonoBehaviour
                 switch (vaCham)
                 {
                     case 1:
-                        SceneManager.LoadScene("Scenes/BanBep");
+                        if(GameControlMain.Day==6)
+                            SceneManager.LoadScene("Scenes/Bep");
+                        else
+                            SceneManager.LoadScene("Scenes/BanBep");
                         break;
                     case 2:
                         SceneManager.LoadScene("Scenes/Bep");
