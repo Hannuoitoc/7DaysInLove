@@ -13,7 +13,7 @@ public class LoControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    async Task Update()
+    void Update()
     {
         switch (trangThai)
         {
@@ -25,11 +25,12 @@ public class LoControl : MonoBehaviour
                 pizzaSong.SetActive(false);
                 animator.SetBool("isLoMo", false);
                 animator.SetBool("isLoDangNau", true);
-                await Task.Delay(3000);
-                animator.SetBool("isLoDangNau", false);
-                animator.SetBool("isLoMo", true);
-                pizzaChin.SetActive(true);
-                trangThai=3;
+                GameControlMain.instance.WaitAndDo(2f, () => {
+                    animator.SetBool("isLoDangNau", false);
+                    animator.SetBool("isLoMo", true);
+                    pizzaChin.SetActive(true);
+                    trangThai=3;
+                });
                 break;
         }
     }

@@ -13,7 +13,7 @@ public class Bat : MonoBehaviour
     }
 
     // Update is called once per frame
-    async Task Update()
+    void Update()
     {
         switch (trangThai)
         {

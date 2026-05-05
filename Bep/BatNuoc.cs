@@ -26,8 +26,8 @@ public class BatNuoc : MonoBehaviour
         {
             if (isNoi&&Noi.trangThai==0)
             {
-                Destroy(gameObject);
                 Noi.trangThai++;
+                Destroy(gameObject);
             }
             else
             {

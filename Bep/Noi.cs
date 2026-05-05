@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Noi : MonoBehaviour
 {
+    public AudioSource audioSource;
     public static int trangThai=0;
     public static bool nuocSoi=false;
     private bool myChin=false;
@@ -18,32 +19,40 @@ public class Noi : MonoBehaviour
         defaultPosition = transform.position;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
-    async Task Update()
+    void Update()
     {
         switch (trangThai)
         {
             case 1:
+                if(!audioSource.isPlaying)
+                audioSource.Play();
                 animator.SetBool("isNoiNuoc", true);
-                await Task.Delay(2000);
-                animator.SetBool("isNoiNuoc", false);
-                animator.SetBool("isNoiNuocSoi", true);
-                nuocSoi=true;
+                GameControlMain.instance.WaitAndDo(2f, () => {
+                    animator.SetBool("isNoiNuoc", false);
+                    animator.SetBool("isNoiNuocSoi", true);
+                    nuocSoi=true;
+                });
                 break;
             case 2:
                 if (!myChin)
                 {
                     animator.SetBool("isNoiNuocSoi", false);
-                    animator.SetBool("isNoiMyY", true);
-                    await Task.Delay(2000);
-                    animator.SetBool("isNoiMyY", false);
-                    animator.SetBool("isNoiMyToi", true);
-                    await Task.Delay(2000);
-                    animator.SetBool("isNoiMyToi", false);
-                    animator.SetBool("isNoiMyChin", true);
-                    myChin=true;
+                    if(!animator.GetBool("isNoiMyToi")&&!animator.GetBool("isNoiMyChin"))
+                        animator.SetBool("isNoiMyY", true);
+                    GameControlMain.instance.WaitAndDo(2f, () => {
+                        if(!animator.GetBool("isNoiMyChin"))
+                            animator.SetBool("isNoiMyToi", true);
+                        animator.SetBool("isNoiMyY", false);
+                        GameControlMain.instance.WaitAndDo(2f, () => {
+                            animator.SetBool("isNoiMyChin", true);
+                            animator.SetBool("isNoiMyToi", false);
+                            myChin=true;
+                        });
+                    });
                 }
                 if (myChin)
                 {
@@ -59,6 +68,7 @@ public class Noi : MonoBehaviour
                             animator.SetBool("isNoiMyChin", false);
                             animator.SetBool("isNoi", true);
                             transform.position=defaultPosition;
+                            audioSource.Stop();
                             Dia.trangThai++;
                         }
                         else
@@ -72,15 +82,21 @@ public class Noi : MonoBehaviour
                 if (!myChin)
                 {
                     animator.SetBool("isNoiNuocSoi", false);
-                    animator.SetBool("isNoiMyTuongDen", true);
-                    await Task.Delay(2000);
-                    animator.SetBool("isNoiMyTuongDen", false);
-                    animator.SetBool("isNoiMyToi", true);
-                    await Task.Delay(2000);
-                    animator.SetBool("isNoiMyToi", false);
-                    animator.SetBool("isNoiMyChin", true);
+                    if(!animator.GetBool("isNoiMyToi")&&!animator.GetBool("isNoiMyChin"))
+                        animator.SetBool("isNoiMyTuongDen", true);
+                    GameControlMain.instance.WaitAndDo(2f, () => {
+                        if(!animator.GetBool("isNoiMyChin"))
+                            animator.SetBool("isNoiMyToi", true);
+                        animator.SetBool("isNoiMyTuongDen", false);
+                        GameControlMain.instance.WaitAndDo(2f, () => {
+                            animator.SetBool("isNoiMyChin", true);
+                            animator.SetBool("isNoiMyToi", false);
+                            myChin=true;
+                        });
+                    });
+                    
+                    
                 }
-                myChin=true;
                 if (myChin)
                 {
                     if (isClick)
@@ -95,6 +111,7 @@ public class Noi : MonoBehaviour
                             animator.SetBool("isNoiMyChin", false);
                             animator.SetBool("isNoi", true);
                             transform.position=defaultPosition;
+                            audioSource.Stop();
                             Bat.trangThai++;
                         }
                         else

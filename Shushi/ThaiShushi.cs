@@ -76,6 +76,7 @@ public class ThaiShushi : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        hieu = 0;
         batDauClick=Vector2.zero;
         ketThucClick=Vector2.zero;  
         batDauClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);

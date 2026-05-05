@@ -13,7 +13,7 @@ public class NoiHap : MonoBehaviour
     }
 
     // Update is called once per frame
-    async Task Update()
+    void Update()
     {
         switch (trangThai)
         {
@@ -23,8 +23,9 @@ public class NoiHap : MonoBehaviour
             case 2:
                 animator.SetBool("isNoiHapSuiCao", false);
                 animator.SetBool("isNoiHapDongNap", true);
-                await Task.Delay(4000);
-                trangThai = 3;
+                GameControlMain.instance.WaitAndDo(3f, () => {
+                   trangThai = 3;     
+                });
                 break;
             case 3:
                 animator.SetBool("isNoiHapDongNap", false);

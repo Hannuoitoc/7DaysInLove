@@ -17,7 +17,7 @@ public class ThaiKhoaiTay : MonoBehaviour
     }
 
     // Update is called once per frame
-    async Task Update()
+    void Update()
     {
 
         if (batDauClick.y >= 0 && batDauClick.y <= 0.7 && batDauClick.x <= -1.4 && hieuX >= 2.7&&trangThai==0)
@@ -46,12 +46,15 @@ public class ThaiKhoaiTay : MonoBehaviour
             animator.SetBool("isKhoaiTay3",false);
             animator.SetBool("isKhoaiTay4",true);
             hieu = 0;
-            await Task.Delay(1000);
-            isDone = true;
+            GameControlMain.instance.WaitAndDo(1f, () => {
+               isDone = true;         
+            });
         }
     }
     private void OnMouseDown()
     {
+        hieu = 0;
+        hieuX = 0;
         batDauClick=Vector2.zero;
         ketThucClick=Vector2.zero;  
         batDauClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);

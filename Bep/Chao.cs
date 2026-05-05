@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Chao : MonoBehaviour
 {
+    private AudioSource  audioSource;
     public static int trangThai=0;
     private Animator animator;
     [SerializeReference] private bool isClick = false;
@@ -14,6 +15,7 @@ public class Chao : MonoBehaviour
         defaultPosition = transform.position;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        audioSource =  GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -27,6 +29,8 @@ public class Chao : MonoBehaviour
             case 2:
                 animator.SetBool("isChaoToi", false);
                 animator.SetBool("isChaoToiPhi", true);
+                if(!audioSource.isPlaying)
+                    audioSource.Play();
                 break;
             case 3:
                 animator.SetBool("isChaoToiPhi", false);
@@ -51,6 +55,7 @@ public class Chao : MonoBehaviour
                         animator.SetBool("isChaoCaChuaThitBamXao", false);
                         animator.SetBool("isChao", true);
                         transform.position=defaultPosition;
+                        audioSource.Stop();
                         Dia.trangThai++;
                     }
                     else
@@ -102,6 +107,7 @@ public class Chao : MonoBehaviour
                         animator.SetBool("isChaoRauCuTuongDen", false);
                         animator.SetBool("isChao", true);
                         transform.position=defaultPosition;
+                        audioSource.Stop();
                         Bat.trangThai++;
                     }
                     else

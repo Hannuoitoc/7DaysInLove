@@ -15,7 +15,7 @@ public class CatBo : MonoBehaviour
     }
 
     // Update is called once per frame
-    async Task Update()
+    void Update()
     {
         if (batDauClick.x >= 0.4 && batDauClick.x <= 0.7 && batDauClick.y >= 0 && hieu >= 2.5 && trangThai == 0)
         {
@@ -44,12 +44,15 @@ public class CatBo : MonoBehaviour
             animator.SetBool("isBo3",false);
             animator.SetBool("isBo4",true);
             hieu = 0;
-            await Task.Delay(1000);
-            isDone=true;
+            GameControlMain.instance.WaitAndDo(1f, () => {
+                isDone=true;        
+            });
+            
         }
     }
     private void OnMouseDown()
     {
+        hieu = 0;
         batDauClick=Vector2.zero;
         ketThucClick=Vector2.zero;  
         batDauClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition); ;
@@ -58,6 +61,6 @@ public class CatBo : MonoBehaviour
     private void OnMouseUp()
     {
         ketThucClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        hieu = batDauClick.y - ketThucClick.y;
+        hieu =  batDauClick.y - ketThucClick.y;
     }
 }

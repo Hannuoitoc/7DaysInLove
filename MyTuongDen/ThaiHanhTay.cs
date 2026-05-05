@@ -8,6 +8,7 @@ public class ThaiHanhTay : MonoBehaviour
     private Vector2 ketThucClick;
     private int trangThai = 0;
     private float hieu = 0;
+    private float hieuX = 0;
     public static bool isDone = false;
     void Start()
     {
@@ -15,26 +16,29 @@ public class ThaiHanhTay : MonoBehaviour
     }
 
     // Update is called once per frame
-    async Task Update()
+    void Update()
     {
-        if (batDauClick.y >= 0.1 && batDauClick.y <= 1.2 && batDauClick.x <= -1.5 && ketThucClick.x-batDauClick.x >= 2&&trangThai==0)
+        if (batDauClick.y >= 0.1 && batDauClick.y <= 1.2 && batDauClick.x <= -1.5 && hieuX >= 2&&trangThai==0)
         {
             animator.SetBool("isHanhTay1",true);
             hieu = 0;
+            hieuX = 0;
             trangThai++;
         }
-        if (batDauClick.y >= -0.5 && batDauClick.y <= 0.1 && batDauClick.x <= -1.5 && ketThucClick.x-batDauClick.x >= 2&&trangThai==1)
+        if (batDauClick.y >= -0.5 && batDauClick.y <= 0.1 && batDauClick.x <= -1.5 && hieuX >= 2&&trangThai==1)
         {
             animator.SetBool("isHanhTay1",false);
             animator.SetBool("isHanhTay2",true);
             hieu = 0;
+            hieuX = 0;
             trangThai++;
         }
-        if (batDauClick.y >= -1.4 && batDauClick.y <= -0.5 && batDauClick.x <= -1.5 && ketThucClick.x-batDauClick.x >= 2.8&&trangThai==2)
+        if (batDauClick.y >= -1.4 && batDauClick.y <= -0.5 && batDauClick.x <= -1.5 && hieuX >= 2.8&&trangThai==2)
         {
             animator.SetBool("isHanhTay2",false);
             animator.SetBool("isHanhTay3",true);
             hieu = 0;
+            hieuX = 0;
             trangThai++;
         }
         if (batDauClick.x >= -0.45 && batDauClick.x <= 0.1 && batDauClick.y >= 0 && hieu >= 2 && trangThai == 3)
@@ -42,6 +46,7 @@ public class ThaiHanhTay : MonoBehaviour
             animator.SetBool("isHanhTay3",false);
             animator.SetBool("isHanhTay4",true);
             hieu = 0;
+            hieuX = 0;
             trangThai++;
         }
 
@@ -50,13 +55,17 @@ public class ThaiHanhTay : MonoBehaviour
             animator.SetBool("isHanhTay4",false);
             animator.SetBool("isHanhTay5",true);
             hieu = 0;
+            hieuX = 0;
             trangThai++;
-            await Task.Delay(1000);
-            isDone = true;
+            GameControlMain.instance.WaitAndDo(1f, () => {
+                isDone = true;        
+            });
         }
     }
     private void OnMouseDown()
     {
+        hieu = 0;
+        hieuX = 0;
         batDauClick=Vector2.zero;
         ketThucClick=Vector2.zero;  
         batDauClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -65,6 +74,7 @@ public class ThaiHanhTay : MonoBehaviour
     private void OnMouseUp()
     {
         ketThucClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        hieu = batDauClick.y - ketThucClick.y;
+        hieu =  batDauClick.y - ketThucClick.y;
+        hieuX = ketThucClick.x - batDauClick.x;
     }
 }

@@ -8,6 +8,7 @@ public class ThaiBiNgoi : MonoBehaviour
     private Vector2 ketThucClick;
     private int trangThai = 0;
     private float hieu = 0;
+    private float hieuX = 0;
     public static bool active = false;
     public static bool isDone = false;
     void Start()
@@ -15,12 +16,13 @@ public class ThaiBiNgoi : MonoBehaviour
         animator = GetComponent<Animator>();
     }
     // Update is called once per frame
-    async Task Update()
+    void Update()
     {
-        if (batDauClick.y >= -1 && batDauClick.y <= 0.8 && batDauClick.x <= -2.5 && ketThucClick.x-batDauClick.x >= 5.4&&trangThai==0)
+        if (batDauClick.y >= -1 && batDauClick.y <= 0.8 && batDauClick.x <= -2.5 && hieuX >= 5.4&&trangThai==0)
         {
             animator.SetBool("isBiNgoi1",true);
             hieu = 0;
+            hieuX = 0;
             trangThai++;
         }
         if (batDauClick.x >= 1.6 && batDauClick.x <= 2.4 && batDauClick.y >= 1 && hieu >= 1.8 && trangThai == 1)
@@ -63,12 +65,16 @@ public class ThaiBiNgoi : MonoBehaviour
             animator.SetBool("isBiNgoi6",false);
             animator.SetBool("isBiNgoi7",true);
             hieu = 0;
-            await Task.Delay(2000);
-            isDone = true;
+            GameControlMain.instance.WaitAndDo(1f, () => {
+               isDone = true;         
+            });
+            
         }
     }
     private void OnMouseDown()
     {
+        hieu = 0;
+        hieuX = 0;
         batDauClick=Vector2.zero;
         ketThucClick=Vector2.zero;  
         batDauClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -77,6 +83,7 @@ public class ThaiBiNgoi : MonoBehaviour
     private void OnMouseUp()
     {
         ketThucClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        hieu = batDauClick.y - ketThucClick.y;
+        hieu =  batDauClick.y - ketThucClick.y;
+        hieuX = ketThucClick.x - batDauClick.x;
     }
 }

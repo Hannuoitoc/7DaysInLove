@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class Dia : MonoBehaviour
 {
+
     public static int trangThai=0;
     private Animator animator;
     public static bool isClick=false;
     void Start()
     {
+        
         animator = GetComponent<Animator>();
     }
 
@@ -17,6 +19,7 @@ public class Dia : MonoBehaviour
         switch (trangThai)
         {
             case 1:
+                
                 animator.SetBool("isDiaMy", true);
                 break;
             case 2:

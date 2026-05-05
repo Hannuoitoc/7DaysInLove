@@ -19,9 +19,17 @@ public class BepControl : MonoBehaviour
     public GameObject tuongDen;
     public GameObject SuiCao;
     public GameObject MyY;
+        
+    private bool isAudioMyTuongDen1=false;
+    private bool isAudioMyTuongDen2=false;
+    private bool isAudioSuiCao=false;
+    private bool isAudioMyY1=false;
+    private bool isAudioMyY2=false;
+    private AudioSource audioSource;
+    public AudioClip donedonedoen;
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -33,12 +41,19 @@ public class BepControl : MonoBehaviour
                 {
                     noi.SetActive(true);
                     bat.SetActive(true);
+                    if(batNuoc!=null)
                     batNuoc.SetActive(true);
+                    if(vatMyTuongDen!=null)
                     vatMyTuongDen.SetActive(true);
                 }
 
                 if (Bat.trangThai == 1&&Bat.isClick==true)
                 {
+                    if (isAudioMyTuongDen1 == false)
+                    {
+                        isAudioMyTuongDen1=true;
+                        audioSource.PlayOneShot(donedonedoen);
+                    }
                     if (Chao.trangThai == 13)
                     {
                         bat.SetActive(true);
@@ -49,27 +64,41 @@ public class BepControl : MonoBehaviour
                         bat.SetActive(false);
                     }
                     noi.SetActive(false);
-                    toi.SetActive(true);
-                    chao.SetActive(true);
-                    bi.SetActive(true);
-                    diaThit.SetActive(true);
-                    khoaiTay.SetActive(true);
-                    hanhTay.SetActive(true);
-                    duong.SetActive(true);
-                    tuongDen.SetActive(true);
-                    
+                    if(toi!=null)
+                        toi.SetActive(true);
+                        chao.SetActive(true);
+                    if(bi!=null)
+                        bi.SetActive(true);
+                    if(diaThit!=null)
+                        diaThit.SetActive(true);
+                    if(khoaiTay!=null)
+                        khoaiTay.SetActive(true);
+                    if(hanhTay!=null)
+                        hanhTay.SetActive(true);
+                    if(duong!=null)
+                        duong.SetActive(true);
+                    if (tuongDen != null)
+                        tuongDen.SetActive(true);
                 }
 
                 if (Bat.trangThai == 2 && Bat.isClick == true)
                 {
-                    GameControlMain.doneTuongDen=true;
+                    if (isAudioMyTuongDen2 == false)
+                        audioSource.PlayOneShot(donedonedoen);
+                    isAudioMyTuongDen2=true;
+                    if(isAudioMyTuongDen1==true)
+                        GameControlMain.doneTuongDen=true;
                 }
                 break;
             case 3:
                 SuiCao.SetActive(true);
                 if (NoiHap.trangThai == 3 && NoiHap.isClick == true)
                 {
-                    GameControlMain.doneSuiCao = true;
+                    if (isAudioSuiCao == false)
+                        audioSource.PlayOneShot(donedonedoen);
+                    isAudioSuiCao=true;
+                    if(isAudioSuiCao==true)
+                        GameControlMain.doneSuiCao = true;
                 }
                 break;
             case 6:
@@ -77,12 +106,19 @@ public class BepControl : MonoBehaviour
                 {
                     noi.SetActive(true);
                     dia.SetActive(true);
+                    if(batNuoc!=null)
                     batNuoc.SetActive(true);
+                    if(vatMyY!=null)
                     vatMyY.SetActive(true);
                 }
 
                 if (Dia.trangThai == 1 && Dia.isClick == true)
                 {
+                    if (isAudioMyY1 == false)
+                    {
+                        isAudioMyY1=true;
+                        audioSource.PlayOneShot(donedonedoen);
+                    }
                     if (Chao.trangThai == 5)
                     {
                         Dia.isClick = false;
@@ -94,12 +130,23 @@ public class BepControl : MonoBehaviour
                     }
                     chao.SetActive(true);
                     noi.SetActive(false);
+                    if(toi!=null)
                     toi.SetActive(true);
+                    if(MyY!=null)
                     MyY.SetActive(true);
                 }
                 if (Dia.trangThai == 2 && Dia.isClick == true)
                 {
-                    GameControlMain.doneMyY=true;
+                    if (isAudioMyY2 == false)
+                        audioSource.PlayOneShot(donedonedoen);
+                    isAudioMyY2=true;
+                    if (isAudioMyY2 == true)
+                    {
+                        GameControlMain.instance.WaitAndDo(0.5f, () => {
+                            GameControlMain.doneMyY=true;
+                        });
+                    }
+                        
                 }
                 break;
         }

@@ -17,7 +17,7 @@ public class ThaiThit : MonoBehaviour
     }
 
     // Update is called once per frame
-    async Task Update()
+    void Update()
     {
 
         if (batDauClick.y >= 2 && hieu >= 3.6&&trangThai==0)
@@ -32,9 +32,10 @@ public class ThaiThit : MonoBehaviour
             animator.SetBool("isThit3",true);
             hieu = 0;
             trangThai++;
-            await Task.Delay(500);
-            animator.SetBool("isThit3",false);
-            animator.SetBool("isThit4",true);
+            GameControlMain.instance.WaitAndDo(0.5f, () => {
+                 animator.SetBool("isThit3",false);
+                animator.SetBool("isThit4",true);       
+            });
         }
         if (batDauClick.y >= 2 && hieu >= 3.6 && trangThai == 2)
         {
@@ -65,13 +66,15 @@ public class ThaiThit : MonoBehaviour
             animator.SetBool("isThit8",true);
             hieu = 0;
             trangThai++;
-            await Task.Delay(2000);
-            isDone = true;
+            GameControlMain.instance.WaitAndDo(1f, () => {
+               isDone = true;         
+            });
         }
         
     }
     private void OnMouseDown()
     {
+        hieu = 0;
         batDauClick=Vector2.zero;
         ketThucClick=Vector2.zero;  
         batDauClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -80,7 +83,7 @@ public class ThaiThit : MonoBehaviour
     private void OnMouseUp()
     {
         ketThucClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        hieu = batDauClick.y - ketThucClick.y;
+        hieu =  batDauClick.y - ketThucClick.y;
     }
 
 }

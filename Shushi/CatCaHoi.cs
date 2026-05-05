@@ -15,7 +15,7 @@ public class CatCaHoi : MonoBehaviour
     }
 
     // Update is called once per frame
-    async Task Update()
+    void Update()
     {
         if (batDauClick.y >= 0 && batDauClick.y <= 0.8 && batDauClick.x <= -1.5 && hieu>= 2.8&&trangThai==0)
         {
@@ -28,12 +28,15 @@ public class CatCaHoi : MonoBehaviour
             animator.SetBool("isCaHoi1",false);
             animator.SetBool("isCaHoi2",true);
             hieu = 0;
-            await Task.Delay(1000);
-            isDone=true;
+            GameControlMain.instance.WaitAndDo(1f, () => {
+               isDone=true;         
+            });
+            
         }
     }
     private void OnMouseDown()
     {
+        hieu = 0;
         batDauClick=Vector2.zero;
         ketThucClick=Vector2.zero;  
         batDauClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -42,6 +45,6 @@ public class CatCaHoi : MonoBehaviour
     private void OnMouseUp()
     {
         ketThucClick = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        hieu = ketThucClick.x-batDauClick.x;
+        hieu =  ketThucClick.x - batDauClick.x;
     }
 }

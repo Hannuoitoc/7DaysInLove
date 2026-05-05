@@ -4,13 +4,14 @@ using UnityEngine.SceneManagement;
 public class PizzaChin : MonoBehaviour
 {
     public bool isClick=false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private AudioSource audioSource;
+    public AudioClip donedonedoen;
+    private bool isAudioPizza=false;
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
             
@@ -18,6 +19,10 @@ public class PizzaChin : MonoBehaviour
 
     private void OnMouseDown()
     {
-        GameControlMain.donePizza=true;
+        if (isAudioPizza == false)
+        {
+            isAudioPizza=true;
+            GameControlMain.donePizza=true;
+        }
     }
 }
